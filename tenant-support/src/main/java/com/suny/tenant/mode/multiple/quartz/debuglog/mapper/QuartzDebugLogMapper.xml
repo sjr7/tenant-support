@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.suny.tenant.mode.multiple.quartz.debuglog.mapper.QuartzDebugLogMapper">
+
+    <resultMap id="BaseResultMap" type="com.suny.tenant.mode.multiple.quartz.debuglog.QuartzDebugLog">
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="jobKey" column="job_key" jdbcType="VARCHAR"/>
+        <result property="jobClass" column="job_class" jdbcType="VARCHAR"/>
+        <result property="tenantId" column="tenant_id" jdbcType="VARCHAR"/>
+        <result property="firetime" column="fireTime" jdbcType="DATE"/>
+        <result property="scheduledFireTime" column="scheduled_fire_time" jdbcType="DATE"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,job_key,job_class,
+        tenant_id,fireTime,scheduled_fire_time
+    </sql>
+
+    <insert id="saveLog" parameterType="com.suny.tenant.mode.multiple.quartz.debuglog.QuartzDebugLog">
+        insert into quartz_debug_log ( job_key, job_class, tenant_id, "fireTime", scheduled_fire_time)
+        values (#{log.jobKey}, #{log.jobClass}, #{log.tenantId}, #{log.firetime}, #{log.scheduledFireTime});
+    </insert>
+</mapper>
