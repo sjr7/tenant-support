@@ -53,6 +53,15 @@ public final class SystemTenantHelper {
         return new ArrayList<>(TENANT_MAP.values());
     }
 
+    public SysTenant getSystemTenant() {
+        final SysTenant sysTenant = getAll().stream().filter(e -> e.getSystemTenant() != null && e.getSystemTenant()).findFirst().orElse(null);
+        if (sysTenant == null) {
+            log.warn("System tenant not exist!");
+        }
+
+        return sysTenant;
+    }
+
     public SysTenant getTenant(String tenantId) {
         if (isExist(tenantId)) {
             return TENANT_MAP.get(tenantId);

@@ -11,4 +11,5 @@ import java.lang.annotation.*;
 @Documented
 public @interface TenantScheduledTask {
 
+    boolean onlyMaster() default false;
 }

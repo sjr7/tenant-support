@@ -30,13 +30,25 @@ public class ScheduledTaskAspect {
 
     @Around(value = "execute(annotation)", argNames = "proceedingJoinPoint,annotation")
     public Object doAround(ProceedingJoinPoint proceedingJoinPoint, TenantScheduledTask annotation) throws Throwable {
-        scheduledTaskWrapperExecutor.execute(o -> {
-            try {
-                proceedingJoinPoint.proceed();
-            } catch (Throwable throwable) {
-                log.warn("scheduled task execute exception ! ", throwable);
-            }
-        });
+        final boolean onlyMaster = annotation.onlyMaster();
+        if (onlyMaster) {
+            scheduledTaskWrapperExecutor.onlyExecuteMaster(o -> {
+                try {
+                    proceedingJoinPoint.proceed();
+                } catch (Throwable throwable) {
+                    log.warn("scheduled task execute exception ! ", throwable);
+                }
+            });
+        } else {
+            scheduledTaskWrapperExecutor.execute(o -> {
+                try {
+                    proceedingJoinPoint.proceed();
+                } catch (Throwable throwable) {
+                    log.warn("scheduled task execute exception ! ", throwable);
+                }
+            });
+        }
+
 
         return null;
     }

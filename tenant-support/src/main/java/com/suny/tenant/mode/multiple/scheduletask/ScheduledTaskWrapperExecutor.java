@@ -40,4 +40,24 @@ public class ScheduledTaskWrapperExecutor {
 
         }
     }
+
+
+    /**
+     * 执行主库定时任务
+     *
+     * @param consumer 业务执行
+     */
+    public void onlyExecuteMaster(Consumer<Object> consumer) {
+        final SysTenant sysTenant = systemTenantHelper.getSystemTenant();
+        if (sysTenant == null) {
+            return;
+        }
+
+        try {
+            UserContext.setTenantId(sysTenant.getTenantId());
+            consumer.accept(sysTenant.getTenantId());
+        } finally {
+            UserContext.clear();
+        }
+    }
 }
