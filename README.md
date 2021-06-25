@@ -193,25 +193,262 @@
 
 ### 6.1 切换多租户、单租户模式
 
+- 多租户模式
 
+  在项目启动类上添加 **@EnabledMultipleTenant** 注解。
+
+  
+
+- 单租户模式
+
+​       在项目启动类上添加  **@EnableSingleTenant** 注解
+
+  
 
 ### 6.2 Spring Cache 支持
+
+- @Cacheable   支持，无需额外调整。
+- @CachePut    支持，无需额外调整。
+- @CacheEvict  支持，无需额外调整。 allEntries = true 时只会移除当前租户相关的缓存，不会影响到其他租户缓存。
 
 
 
 ### 6.3 Spring Task 支持
 
+ 在执行业务的函数上额外添加  **@TenantScheduledTask** 注解，注解有以下可选择的参数: 
+
+- onlyMaster    默认值为 **fasle** 。 当将值调整为 **true** 时将只会以主库租户身份去执行业务逻辑。
+
+  
+
+````java
+@Component
+public class DemoTask {
+  
+    @TenantScheduledTask
+    @Scheduled
+    public void execute() {
+       // 执行业务
+    }
+}
+
+````
+
+
+
 
 
 ### 6.4 Spring Data Redis  支持
 
- RedisTemplate、 StringRedisTemplate 支持
+主要是支持以下两个常用的工具类中大部分函数，少部分函数不支持！！！
+
+#### 6.4.1 RedisTemplate 支持
+
+##### 6.4.1.1 基础函数支持  
+  - [x] hasKey()
+
+  - [x] countExistingKeys()
+
+  - [x] delete()
+
+  - [x] unlink()
+
+  - [x] type()
+
+  - [x] keys()
+
+  - [x] rename()
+
+  - [x] renameIfAbsent()
+
+  - [x] expire()
+
+  - [x] expireAt()
+
+  - [x] persist()
+
+  - [x] move()
+
+  - [x] dump()
+
+  - [x] restore()
+
+  - [x] getExpire()
+
+  - [x] watch()
+
+  - [ ] convertAndSend  暂时不支持，需要手动调整代码适配。
+
+##### 6.4.1.2.  valueOps  支持函数
+- [x] get()
+- [x] append()
+- [x] size()
+- [x] increment()
+- [x] set()
+- [x] getAndSet()
+- [x] setBit()
+- [x] getBit()
+- [x] bitField()
+- [x] decrement()
+- [x] multiSet()
+- [x] setIfAbsent()
+- [x] multiSetIfAbsent()
+
+
+##### 6.4.1.3.  listOps  支持函数
+- [x] index()
+- [x] remove()
+- [x] size()
+- [x] trim()
+- [x] set()
+- [x] range()
+- [x] getOperations()
+- [x] rightPopAndLeftPush()
+- [x] rightPopAndLeftPush()
+- [x] rightPopAndLeftPush()
+- [x] rightPushIfPresent()
+- [x] leftPushIfPresent()
+- [x] rightPush()
+- [x] rightPush()
+- [x] rightPop()
+- [x] rightPop()
+- [x] rightPop()
+- [x] leftPush()
+- [x] leftPush()
+- [x] leftPop()
+- [x] leftPop()
+- [x] leftPop()
+- [x] leftPushAll()
+- [x] leftPushAll()
+- [x] rightPushAll()
+- [x] rightPushAll()
+
+##### 6.4.1.4.  setOps  支持函数
+- [x] remove()
+- [x] size()
+- [x] pop()
+- [x] pop()
+- [x] members()
+- [x] union()
+- [x] union()
+- [x] union()
+- [x] move()
+- [x] scan()
+- [x] difference()
+- [x] difference()
+- [x] difference()
+- [x] isMember()
+- [x] getOperations()
+- [x] distinctRandomMembers()
+- [x] intersectAndStore()
+- [x] intersectAndStore()
+- [x] intersectAndStore()
+- [x] differenceAndStore()
+- [x] differenceAndStore()
+- [x] differenceAndStore()
+- [x] unionAndStore()
+- [x] unionAndStore()
+- [x] unionAndStore()
+- [x] randomMember()
+- [x] randomMembers()
+- [x] intersect()
+- [x] intersect()
+- [x] intersect()
+
+##### 6.4.1.5.  streamOps  应用场景少，暂不适配
+
+
+
+##### 6.4.1.6.  zSetOps
+- [x] add()
+- [x] add()
+- [x] remove()
+- [x] count()
+- [x] size()
+- [x] removeRange()
+- [x] range()
+- [x] scan()
+- [x] reverseRange()
+- [x] getOperations()
+- [x] score()
+- [x] zCard()
+- [x] intersectAndStore()
+- [x] intersectAndStore()
+- [x] intersectAndStore()
+- [x] intersectAndStore()
+- [x] rangeByScoreWithScores()
+- [x] rangeByScoreWithScores()
+- [x] removeRangeByScore()
+- [x] reverseRangeByScore()
+- [x] reverseRangeByScore()
+- [x] reverseRangeWithScores()
+- [x] reverseRangeByScoreWithScores()
+- [x] reverseRangeByScoreWithScores()
+- [x] unionAndStore()
+- [x] unionAndStore()
+- [x] unionAndStore()
+- [x] unionAndStore()
+- [x] rangeByLex()
+- [x] rangeByLex()
+- [x] incrementScore()
+- [x] reverseRank()
+- [x] rangeByScore()
+- [x] rangeByScore()
+- [x] rank()
+- [x] rangeWithScores()
+
+##### 6.4.1.7.  geoOps  支持函数
+- [x] add()
+- [x] add()
+- [x] add()
+- [x] add()
+- [x] remove()
+- [x] hash()
+- [x] position()
+- [x] geoRadiusByMember()
+- [x] geoRadiusByMember()
+- [x] geoRadiusByMember()
+- [x] distance()
+- [x] distance()
+- [x] geoAdd()
+- [x] geoAdd()
+- [x] geoAdd()
+- [x] geoAdd()
+- [x] geoDist()
+- [x] geoDist()
+- [x] radius()
+- [x] radius()
+- [x] radius()
+- [x] radius()
+- [x] radius()
+- [x] geoHash()
+- [x] geoPos()
+- [x] geoRadius()
+- [x] geoRadius()
+- [x] geoRemove()
+
+##### 6.4.1.8.  hllOps  支持函数
+- [x] add()
+- [x] size()
+- [x] delete()
+- [x] union()
+
+
+
+#### 6.4.2 StringRedisTemplate 支持
+
+StringRedisTemplate 跟上面的 RedisTemplate 一致的，除了序列化方式并无其他很大差异。
+
 
 
 
 ### 6.5 Redisson 支持
 
+ Redisson 目前的版本并不支持多租户，故需单独适配。
 
+issue： https://github.com/redisson/redisson/issues/3462
+
+answer :  dynamic change of configuration is not supported
 
 ### 6.6 Quartz 支持
 
