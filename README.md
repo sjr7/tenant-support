@@ -154,7 +154,7 @@
 
    ````xml
            <dependency>
-               <groupId>com.suny.tenant</groupId>
+               <groupId>com.suny</groupId>
                <artifactId>tenant-support</artifactId>
                <version>对应的版本号</version>
            </dependency>

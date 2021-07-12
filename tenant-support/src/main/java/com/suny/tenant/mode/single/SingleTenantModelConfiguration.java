@@ -11,7 +11,7 @@ import org.springframework.context.annotation.FilterType;
  * @date 2021-05-13 11:06
  */
 @Configuration
-@ComponentScan(basePackages = "com.cie.tenant", excludeFilters = {
+@ComponentScan(basePackages = "com.suny.tenant", excludeFilters = {
         @ComponentScan.Filter(type = FilterType.REGEX, pattern = "com.suny.tenant.mode.multiple.*")
 })
 public class SingleTenantModelConfiguration {

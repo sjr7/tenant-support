@@ -26,7 +26,7 @@ import javax.annotation.Resource;
  */
 @Configuration
 @Import({AmiProcessorConfig.class, AmiDsAutoConfiguration.class})
-@ComponentScan(basePackages = "com.cie.tenant", excludeFilters = {
+@ComponentScan(basePackages = "com.suny.tenant", excludeFilters = {
         @ComponentScan.Filter(type = FilterType.REGEX, pattern = "com.suny.tenant.mode.single.*")
 })
 public class MultipleTenantModelConfiguration {

@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
-    <groupId>com.suny.ami</groupId>
+    <groupId>com.suny</groupId>
     <artifactId>tenant-support</artifactId>
     <version>${tenant-support.version}</version>
     <!--    <version>1.0.1-SNAPSHOT</version>-->
@@ -90,12 +90,12 @@
         </dependency>
 
 
-       <!-- <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>42.2.19.jre7</version>
-            <optional>true</optional>
-        </dependency>-->
+        <!-- <dependency>
+             <groupId>org.postgresql</groupId>
+             <artifactId>postgresql</artifactId>
+             <version>42.2.19.jre7</version>
+             <optional>true</optional>
+         </dependency>-->
 
         <dependency>
             <groupId>org.springframework</groupId>
