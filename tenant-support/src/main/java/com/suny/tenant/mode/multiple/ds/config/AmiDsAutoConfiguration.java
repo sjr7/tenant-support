@@ -92,7 +92,7 @@ public class AmiDsAutoConfiguration {
 
     private void checkDataSourceParam() {
         if (tenantProperties == null || tenantProperties.getDefaultTenantId() == null) {
-            throw new IllegalArgumentException(String.format("Property '%s.platform-tenant-id'is required", DynamicDataSourceProperties.PREFIX));
+            throw new IllegalArgumentException("Property 'tenant.platform-tenant-id'is required");
         }
     }
 }
